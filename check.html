@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>냉장고를 부탁해!</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="src/logo_i.ico" type="image/x-icon" />    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
@@ -15,22 +16,29 @@
         </div>
     </header>
 
-    <div id="blank"></div>
+    <div id="demo"></div>
 
-    <section id="time">
+    <section id="section-list">
         <div class="wrap">
-            <div class="title">열린 시간</div>
-            <div class="list">
-
+            <div id="elec">
+                <div class="title">전력사용량</div>
+                <ul><li></li></ul>
             </div>
-        </div>
-    </section>
-
-    <section id="rfid">
-        <div class="wrap">
-            <div class="title">제품 인식</div>
-            <div class="list">
-
+            <div id="Bill">
+                <div class="title">전기 사용 요금</div>
+                <ul><li></li></ul>
+            </div>
+            <div id="CO2">
+                <div class="title">탄소 배출량</div>
+                <ul><li></li></ul>
+            </div>
+            <div id="time">
+                <div class="title">열린 시간</div>
+                <ul></ul>
+            </div>
+            <div id="rfid">
+                <div class="title">제품 인식</div>
+                <ul></ul>
             </div>
         </div>
     </section>
@@ -50,7 +58,7 @@
 
     <footer>
         <div class="wrap">
-            Copyright &copy; 3pm Makers
+            Copyright &copy; 3PMakers
         </div>
     </footer>
 
