@@ -34,26 +34,37 @@ header {
     width: 5%;
     padding: 1%;
     max-width: 100%;
+    position: relative;
 }
 
 section {
     width: 100%;
+    height: 600px;
     margin-bottom: 1%;
+    box-shadow: 0 10px 10px -10px #333333;
 }
 
 section .title {
-    padding-top: 5%;
+    padding-top: 11%;
     font-size: 2em;
     font-weight: 600;
 }
 
 section .sub-title {
+    margin-top: 1%;
     padding-top: 1%;
-    font-size: 1.5em;
+    padding-left: 1.5%;
+    padding-bottom: 1%;
+    
+    font-size: 1.3em;
+    font-weight: 400;
+    border-left: 1px solid black;
 }
 
 section .info {
+    width: 32%;
     padding-top: 1%;
+    line-height: 1.7em;
     text-align: justify;
 }
 
@@ -62,25 +73,91 @@ section .left {
 }
 
 section .right {
-    margin-right: 10%;
+    margin-left: 55%;
 }
 
 #section-main {
-    height: 500px;
     background-image: url('src/image1.jpg');
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    color: white;
+    color: #f3f5fb;
 }
 
 #section-main .title {
-    padding-top: 1%;
+    padding-top: 15%;
 }
 
 #section-main .sub-title {
-    padding-top: 13%;
+    border-left: 1px solid white;
+}
+
+#section-why {
+    background-image: url('src/image2.jpg');
+}
+
+#section-what {
+    background-image: url('src/image3.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#section-how {
+    background-image: url('src/image4.jpg');
+}
+
+#section-check {
+    height: 50%;
+    margin-bottom: 0;
+
+    text-align: center;
+    background-image: url('src/image5.jpg');
+}
+
+#section-check .title {
+    padding-top: 8%;
+}
+
+#section-check button {
+    width: 150px;
+    height: 50px;
+    margin-top: 2%;
+
+    font-weight: 600;
+    color: white;
+    background-color: #000;
+    border-radius: 15px 15px 15px 15px;
+}
+
+#section-check button:hover {
+    background-color: #fff;
+    color: black;
+}
+
+#blank {
+    display: none;
+}
+
+#section-graph {
+    margin-bottom: 0;
+}
+
+#section-graph .wrap > * {
+    display: inline-block;
+    padding-left: 9%;
+    padding-right: 9%;
+    text-align: center;
+}
+
+#section-graph .wrap .title {
+    margin-bottom: 4%;
+}
+
+#section-graph .wrap #temp {
+    border-right: 1px solid grey;
 }
 
 footer {
