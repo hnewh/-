@@ -83,7 +83,7 @@ $('#section-why').on("click", function(event){
     $('#section-why .wrap .origin').hide();
     $('#section-why .wrap .blank').show();
     $('#section-why').on("click", function(event){
-        window.open('file:///C:/Users/%EB%A5%98%EC%A0%95%EC%97%B0/Desktop/%EB%83%89%EC%9E%A5%EA%B3%A0%EB%A5%BC%20%EB%B6%80%ED%83%81%ED%95%B4!/web/src/news1.png', '_blank');
+        window.location = 'news.html';
     })
 });
 
