@@ -13,7 +13,7 @@ check = setInterval(function(event){
         var obj = JSON.parse(data);
         
         // 태그, 열린 시간 불러오기
-        teg = parseFloat(obj["feeds"][0][5]);
+        tag = parseFloat(obj["feeds"][0][5]);
         time = parseFloat(obj["feeds"][0][6]); 
 
         // 총합 계산
@@ -28,13 +28,13 @@ check = setInterval(function(event){
         $('#section-list #time').append("<div class='info middle'>열린 시간: " + time + "초</div>");
 
         // 제품 배열 확인하고 check.html에 추가
-        if(checkProduct(teg) == 1)
+        if(checkProduct(tag) == 1)
         {
-            product.append(teg);
-            $('#section-list #rfid').append("<div class='info middle'>" + teg + "번 제품이 냉장고 안에 들어갔습니다.</div>");
+            product.append(tag);
+            $('#section-list #rfid').append("<div class='info middle'>" + tag + "번 제품이 냉장고 안에 들어갔습니다.</div>");
         }
-        else if(checkProduct(teg) == -1)
-            $('#section-list #rfid').append("<div class='info middle'>" + teg + "번 제품이 냉장고 밖으로 나갔습니다.</div>");
+        else if(checkProduct(tag) == -1)
+            $('#section-list #rfid').append("<div class='info middle'>" + tag + "번 제품이 냉장고 밖으로 나갔습니다.</div>");
         else
             $('#section-list #rfid').append("<div class='info middle'>냉장고 안에 아무 제품도 들어있지 않습니다.</div>");
     });
@@ -42,6 +42,7 @@ check = setInterval(function(event){
 
 remove = setInterval(function(event){
     $('#section-list .info').remove();
+    esum = 0, bsum = 0, csum = 0, time = 0;
 }, 45000);
 
 // 그래프 삽입

@@ -245,7 +245,8 @@ footer {
 }
 
 #section-list {
-    padding-top: 7%;
+    height: 1000px;
+    padding-top: 5%;
     text-align: center;
 }
 
