@@ -1,12 +1,16 @@
-line = new Array(), line2 = new Array(), product = new Array(), lnum = 0, lnum2 = 0, pnum = 0, time = 0, sum = 0;
+line = new Array(), line2 = new Array(), product = new Array()
+lnum = 0, lnum2 = 0, pnum = 0, time = 0, sum = 0;
 let isFirst = true;
-link = 'https://api.thingspeak.com/channels/548669/feeds.json?results=2';
+
+link = 'https://api.thingspeak.com/channels/548669/feeds.json?results=2'; //데이터 링크
 checkValue = setInterval(function(event){
-    $('#demo').load(link, function(data){
+    $('#check').load(link, function(data){
+        //json으로 데이터 받기
         var obj = JSON.parse(data);
+
+        //열린 시간 표시
         if(obj['feeds'][1]['field1'] == 1)
         {
-            console.log('asd');
             time += 15;
             line[lnum] = '<li>' + time +'초 열렸습니다.</li>';
             $('#section-list .wrap #time ul').append(line[lnum]);
@@ -21,6 +25,7 @@ checkValue = setInterval(function(event){
             console.log(lnum);
         }
     
+        //상품 확인
         if(obj['feeds'][1]['field2'] > 0 && checkProduct(obj['feeds'][1]['field2']))
         {
             product[pnum] = obj['feeds'][1]['field2']
@@ -62,13 +67,14 @@ checkValue = setInterval(function(event){
             $('#section-list .wrap #CO2 ul li')[1].innerHTML = '이산화탄소 배출량 : ' + (sum * 4.24).toFixed(2);           
             $('#section-list .wrap #Bill ul li')[1].innerHTML = '전기 사용 요금 : ' + (sum * 0.004).toFixed(2) + '원';           
         }
-
     });
 }, 15000);
 
+//그래프 삽입
 $('#section-graph .wrap #temp .graph').append('<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/548669/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=%EC%98%A8%EB%8F%84&type=line"></iframe>');
 $('#section-graph .wrap #mois .graph').append('<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/548669/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=%EC%8A%B5%EB%8F%84&type=line"></iframe>');
 
+//상품 중복 확인
 function checkProduct(value)
 {
     for(i = 0; i < product.length; i++)
@@ -79,14 +85,28 @@ function checkProduct(value)
     return true;
 }
 
-$('#section-why').on("click", function(event){
-    $('#section-why .wrap .origin').hide();
-    $('#section-why .wrap .blank').show();
-    $('#section-why').on("click", function(event){
-        window.location = 'news.html';
-    })
+$('#section-check button').on("click", function(event){
+    $(this).hide();
+    $('#demo').show();
 });
 
-$('#section-what').on("click", function(event){
+var num = 0;
+$('#section-main button').on("click", function(event){
+    if(num%2)
+    {
+        $(this).html("English");
+        $('.kor').show();
+        $('.en').hide();
+    }
+    else
+    {
+        $(this).html("한국어");
+        $('.kor').hide();
+        $('.en').show();
+    }
+    num++;
+});
+
+$('#section-what p').on("click", function(event){
     window.location = 'code.html';
 });
