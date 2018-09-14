@@ -86,12 +86,11 @@ function checkProduct(value)
 }
 
 $('#section-check button').on("click", function(event){
-    $(this).hide();
-    $('#demo').show();
+    window.location = 'check.html';
 });
 
 var num = 0;
-$('#section-main button').on("click", function(event){
+$('#lan').on("click", function(event){
     if(num%2)
     {
         $(this).html("English");

@@ -1,5 +1,9 @@
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 html, body {
     width: 100%;
     height: 100%;
@@ -24,8 +28,10 @@ html, body {
 /* index.html */
 /* 헤더 */
 header {
+    width: 100%;
     margin: auto;
-    position: relative;
+    position: fixed;
+    z-index: 100;
 
     background-color: rgba(0, 0, 0, 0.8);
     text-align: center;
@@ -36,6 +42,18 @@ header {
     padding: 1%;
     max-width: 100%;
     position: relative;
+}
+
+#lan {
+    width: 50px;
+    position: absolute;
+    right: 5%;
+    top: 55%;
+
+    border: 0;
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    cursor: pointer;
 }
 
 /* 섹션 */
@@ -78,6 +96,10 @@ section .right {
     margin-left: 60%;
 }
 
+section .middle {
+    margin: auto;
+}
+
 section p {
     width: 95px;
     margin-top: 5px;
@@ -92,6 +114,7 @@ section p:hover {
 
 /* 주제 */
 #section-main {
+    padding-top: 4%;
     background-image: url('src/image1.jpg');
     background-attachment: fixed;
     background-position: center;
@@ -110,7 +133,6 @@ section p:hover {
 
 /* 동기 */
 #section-why {
-    height: 750px;
     background-image: url('src/image2.jpg');
     background-position: center;
     background-repeat: no-repeat;
@@ -123,9 +145,23 @@ section p:hover {
     text-align: center;
 }
 
+/* 소비전력 */
+#section-product {
+    padding-right: 1%;
+    background-image: url('src/image3.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#section-product .info {
+    width: 500px;
+    padding-top: 5%;
+}
+
 /* 개발 방법 */
 #section-what {
-    background-image: url('src/image3.jpg');
+    background-image: url('src/image4.jpg');
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -142,9 +178,17 @@ section p:hover {
     width: 1000px;
 }
 
-/* 활용 방법 */
-#section-how {
-    background-image: url('src/image4.jpg');
+/* 가정 활용 방법 */
+#section-how1 {
+    background-image: url('src/image5.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/*기업 활용 방법 */
+#section-how2 {
+    background-image: url('src/image6.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -155,8 +199,9 @@ section p:hover {
     height: 50%;
     margin-bottom: 0;
 
+    line-height: 50%;
     text-align: center;
-    background-image: url('src/image5.jpg');
+    background-image: url('src/image7.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -243,75 +288,93 @@ footer {
     width: 80%;
 }
 
-/* test.html */
 
+/* table */
 .promos {
-    width: 800px;
+    width: 750px;
     margin: 0 auto;
-    margin-top: 50px;
-  }
-  .promo {
+    padding-top: 5%;
+}
+
+.promo {
     width: 250px;
+    float: left;
+
     background: #0F1012; 
     color: #f9f9f9;
-    float: left;
-  }
-  .deal {
+}
+
+.deal {
     padding: 10px 0 0 0;
-  }
-  .deal span {
+}
+
+.deal span {
     display: block;
     text-align: center;
-  }
-  .deal span:first-of-type {
+}
+
+.deal span:first-of-type {
     font-size: 23px;  
-  }
-  .deal span:last-of-type {
+}
+
+.deal span:last-of-type {
     font-size: 13px;
-  }
-  .promo .price {
-    display: block;
+}
+
+.promo .price {
     width: 250px;  
-    background: #292b2e;
     margin: 15px 0 10px 0;
+    padding: 17px 0;
+    display: block;
+
+    background: #292b2e;
     text-align: center;
     font-size: 23px;
-    padding: 17px 0 17px 0;
-  }
-  .scale .subject {
-      color: #64AAA4;
-  }
-  .subject {
-      font-size: 11px;
-      color: white;
-  }
-  ul {
+}
+
+.scale .subject {
+    color: #64AAA4;
+}
+
+.subject {
+    font-size: 11px;
+    color: white;
+}
+
+ul {
     display: block;
-    margin: 20px 0 10px 0;
+    margin: 20px 0;
     padding: 0;
+
     list-style-type: none;
     text-align: center;
     color: #999999;
-  }
-  li {
+}
+
+li {
     display: block;
     margin: 10px 0 0 0;
-  }
-  .promo button {
+}
+
+.promo button {
+    padding: 10px 37px;
+    margin: 10px 0 20px 60px;
+
     border: none;
     border-radius: 40px;
     background: #292b2e;
     color: #f9f9f9;
-    padding: 10px 37px;
-    margin: 10px 0 20px 60px;
-  }
-  .scale {
+}
+
+.scale {
     transform: scale(1.2);
     box-shadow: 0 0 4px 1px rgba(20, 20, 20, 0.8);
-  }
-  .scale button {
+}
+
+.scale button {
     background: #64AAA4;
-  }
-  .scale .price {
+}
+
+.scale .price {
     color: #64AAA4;
-  }
+}
