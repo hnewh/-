@@ -1,94 +1,73 @@
-line = new Array(), line2 = new Array(), product = new Array()
-lnum = 0, lnum2 = 0, pnum = 0, time = 0, sum = 0;
-let isFirst = true;
+// 데이터 링크
+link = 'https://api.thingspeak.com/channels/575240/feeds.json?api_key=VCSZ7S7QTJ49A1FN&results=2';
 
-link = 'https://api.thingspeak.com/channels/548669/feeds.json?results=2'; //데이터 링크
-checkValue = setInterval(function(event){
+// 전기사용량, 전기요금, 탄소배출량 총합
+esum = 0, bsum = 0, csum = 0;
+// 제품번호 배열
+product = new Array();
+
+// 15초에 한 번 데이터 링크 로드
+check = setInterval(function(event){
     $('#check').load(link, function(data){
-        //json으로 데이터 받기
+        // json으로 data불러오기
         var obj = JSON.parse(data);
-
-        //열린 시간 표시
-        if(obj['feeds'][1]['field1'] == 1)
-        {
-            time += 15;
-            line[lnum] = '<li>' + time +'초 열렸습니다.</li>';
-            $('#section-list .wrap #time ul').append(line[lnum]);
-            lnum++;
-        }
-        else
-        {
-            time = 0;
-            line[lnum] = '<li>닫혔습니다.</li>'
-            $('#section-list .wrap #time ul').append(line[lnum]);
-            lnum++;
-            console.log(lnum);
-        }
-    
-        //상품 확인
-        if(obj['feeds'][1]['field2'] > 0 && checkProduct(obj['feeds'][1]['field2']))
-        {
-            product[pnum] = obj['feeds'][1]['field2']
-            $('#section-list .wrap #rfid ul').append('<li>' + obj['feeds'][1]['field2'] + '번 상품이 냉장고 안에 있습니다.</li>');
-            lnum2++;
-        }
-        else if(obj['feeds'][1]['field2'] > 0 && !checkProduct(obj['feeds'][1]['field2']))
-        {
-            product.splice(product.indexOf(obj['feeds'][1]['field2']), 1);
-            $('#section-list .wrap #rfid ul').append('<li>' + obj['feeds'][1]['field2'] + '번 상품을 누군가가 가져갔습니다.</li>');
-            lnum2++;
-        }
-        if(product.length == 0)
-        {
-            $('#section-list .wrap #rfid ul').append('<li>아무 상품도 들어있지 않습니다.</li>');
-            lnum2++;
-        }
         
-        if(lnum == 6)
-        {
-            $('#section-list .wrap #time ul li')[0].remove();            
-            lnum = 5;
-        }
-        if(lnum2 == 6)
-        {
-            $('#section-list .wrap #rfid ul li')[0].remove();
-            lnum2 = 5;   
-        }
+        // 태그, 열린 시간 불러오기
+        teg = parseFloat(obj["feeds"][0][5]);
+        time = parseFloat(obj["feeds"][0][6]); 
 
-        if (time != 0 ) sum += 15;
-        console.log(sum + " / " + time);
-        if (isFirst) {
-            isFirst = false;
-            $('#section-list .wrap #elec ul').append('<li>전력사용량 : ' + sum.toFixed(2) + '</li>');
-            $('#section-list .wrap #CO2 ul').append('<li>이산화탄소 배출량 : ' + (sum * 4.24).toFixed(2) + '</li>');
-            $('#section-list .wrap #Bill ul').append('<li>전기 사용 요금 : ' + (sum * 0.004).toFixed(2) + '원</li>');            
-        } else {
-            $('#section-list .wrap #elec ul li')[1].innerHTML = '전력사용량 : ' + sum.toFixed(2);           
-            $('#section-list .wrap #CO2 ul li')[1].innerHTML = '이산화탄소 배출량 : ' + (sum * 4.24).toFixed(2);           
-            $('#section-list .wrap #Bill ul li')[1].innerHTML = '전기 사용 요금 : ' + (sum * 0.004).toFixed(2) + '원';           
+        // 총합 계산
+        esum += time.toFixed(2);
+        bsum += (time * 0.004).toFixed(2);
+        csum += (time * 4.24).toFixed(2);
+
+        // check.html에 추가
+        $('#section-list #elec').append("<div class='info middle'>총 사용량 : " + esum + "Wh</div>");
+        $('#section-list #Bill').append("<div class='info middle'>총 요금 : " + bsum + "원</div>");
+        $('#section-list #Cb').append("<div class='info middle'>총 배출량 : " + csum + "TC</div>");
+        $('#section-list #time').append("<div class='info middle'>열린 시간: " + time + "초</div>");
+
+        // 제품 배열 확인하고 check.html에 추가
+        if(checkProduct(teg) == 1)
+        {
+            product.append(teg);
+            $('#section-list #rfid').append("<div class='info middle'>" + teg + "번 제품이 냉장고 안에 들어갔습니다.</div>");
         }
+        else if(checkProduct(teg) == -1)
+            $('#section-list #rfid').append("<div class='info middle'>" + teg + "번 제품이 냉장고 밖으로 나갔습니다.</div>");
+        else
+            $('#section-list #rfid').append("<div class='info middle'>냉장고 안에 아무 제품도 들어있지 않습니다.</div>");
     });
 }, 15000);
 
-//그래프 삽입
-$('#section-graph .wrap #temp .graph').append('<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/548669/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=%EC%98%A8%EB%8F%84&type=line"></iframe>');
-$('#section-graph .wrap #mois .graph').append('<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/548669/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=%EC%8A%B5%EB%8F%84&type=line"></iframe>');
+remove = setInterval(function(event){
+    $('#section-list .info').remove();
+}, 45000);
+
+// 그래프 삽입
+$('#temp .graph').append("<iframe width='450' height='260' style='border: 1px solid #cccccc;' src='https://thingspeak.com/channels/575240/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15'></iframe>");
+$('#mois .graph').append("<iframe width='450' height='260' style='border: 1px solid #cccccc;' src='https://thingspeak.com/channels/575240/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15'></iframe>");
+$('#oxy .graph').append("<iframe width='450' height='260' style='border: 1px solid #cccccc;' src='https://thingspeak.com/channels/575240/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15'></iframe>");
 
 //상품 중복 확인
 function checkProduct(value)
 {
+    if(product.length == 0)
+        return 0;
     for(i = 0; i < product.length; i++)
     {
         if(value == product[i]) 
-            return false;
+            return -1;
     }
-    return true;
+    return 1;
 }
 
+// 체험하기
 $('#section-check button').on("click", function(event){
     window.location = 'check.html';
 });
 
+// 한영 번역
 var num = 0;
 $('#lan').on("click", function(event){
     if(num%2)
@@ -106,6 +85,7 @@ $('#lan').on("click", function(event){
     num++;
 });
 
+// 개발방법 더 알아보기
 $('#section-what p').on("click", function(event){
     window.location = 'code.html';
 });

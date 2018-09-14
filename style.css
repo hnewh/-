@@ -98,6 +98,7 @@ section .right {
 
 section .middle {
     margin: auto;
+    text-align: center;
 }
 
 section p {
@@ -239,42 +240,30 @@ footer {
 }
 
 /* check.html */
-.blank, #check {
+#check {
     display: none;
 }
 
 #section-list {
-    height: 1000px;
     padding-top: 7%;
+    text-align: center;
 }
 
 #section-list .title {
     padding-top: 2%;
 }
 
-#section-list ul {
-    margin-top: 10px;
-    list-style: none;
+#section-graph .title {
+    padding-top: 2%;
 }
 
-#section-graph {
-    height: 500px;
-    margin-bottom: 0;
-}
-
-#section-graph .wrap > * {
-    display: inline-block;
-    padding-left: 9%;
-    padding-right: 9%;
+#temp, #mois, #oxy {
+    height: 400px;
     text-align: center;
 }
 
-#section-graph .wrap .title {
-    margin-bottom: 4%;
-}
-
-#section-graph .wrap #temp {
-    border-right: 1px solid grey;
+#oxy {
+    margin-bottom: 0;
 }
 
 
